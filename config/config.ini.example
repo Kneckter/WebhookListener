@@ -1,0 +1,52 @@
+# Common Settings
+#################
+
+#host: 
+	# Address to listen on (default='127.0.0.1')
+#port: 
+	# Port to listen on (default=5000)
+
+# Webserver Settings
+####################
+
+#ssl-certificate: 
+	# Path to ssl certificate
+#ssl-privatekey: 
+	# Path to ssl private key
+
+# Logging Options
+######
+#no-file-logs
+	# Disables logging to files except for access.log. (default=False)
+#log-path: 
+	# Defines the path logs are saved at. (default=logs/)
+#log-filename: 
+	# Defines the log filename to be saved. The default generates yyyymmdd_HHMM_statusname.log. (default=%Y%m%d_%H%M_<SN>)
+#log-wysiwyg
+	# Tells the logger to write the logs as they show in console. Otherwise, just write the messages to the log. (default=False)
+#log-gmo-enc
+	# Tells the logger to display the encoded GetMapObjects in console and write it to the log file. (default=False)
+#log-gmo-par
+	# Tells the logger to display the parsed GetMapObjects in console and write it to the log file. (default=False)
+#log-gpr-enc
+	# Tells the logger to display the encoded GetPlayerResponse in console and write it to the log file. (default=False)
+#log-gpr-par
+	# Tells the logger to display the parsed GetPlayerResponse in console and write it to the log file. (default=False)
+#log-ggir-enc
+	# Tells the logger to display the encoded GymGetInfoResponse in console and write it to the log file. (default=False)
+#log-ggir-par
+	# Tells the logger to display the parsed GymGetInfoResponse in console and write it to the log file. (default=False)
+#log-fdr-enc
+	# Tells the logger to display the encoded FortDetailsResponse in console and write it to the log file. (default=False)
+#log-fdr-par
+	# Tells the logger to display the parsed FortDetailsResponse in console and write it to the log file. (default=False)
+#log-frs-enc
+	# Tells the logger to display the encoded FortSearchResponse in console and write it to the log file. (default=False)
+#log-frs-par
+	# Tells the logger to display the parsed FortSearchResponse in console and write it to the log file. (default=False)
+#log-encounter-enc
+	# Tells the logger to display the encoded EncounterResponse in console and write it to the log file. (default=False)
+#log-encounter-par
+	# Tells the logger to display the parsed EncounterResponse in console and write it to the log file. (default=False)
+#status-name: 
+	# Used to set the name of this instance to the log file
