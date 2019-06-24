@@ -88,12 +88,13 @@ class Webhook(Flask):
                 method = proto['method']
 
             if "GetMapObjects" in proto or method == 106:
-                if args.log_gmo_enc:
-                    log.info('Encoded GetMapObjects: ' + proto['GetMapObjects'])
-
                 if "GetMapObjects" in proto:
+                    if args.log_gmo_enc:
+                        log.info('Encoded GetMapObjects: ' + proto['GetMapObjects'])
                     gmo_response_string = b64decode(proto['GetMapObjects'])
                 elif method == 106:
+                    if args.log_gmo_enc:
+                        log.info('Encoded GetMapObjects: ' + proto['data'])
                     gmo_response_string = b64decode(proto['data'])
 
                 gmo = GetMapObjectsResponse()
@@ -108,11 +109,13 @@ class Webhook(Flask):
                     log.info('Parsed GetMapObjects: ' + (json.dumps(gmo_response_json, sort_keys=True)))
 
             if "GetPlayerResponse" in proto or method == 2:
-                if args.log_gpr_enc:
-                    log.info('Encoded GetPlayerResponse: ' + proto['GetPlayerResponse'])
                 if "GetPlayerResponse" in proto:
+                    if args.log_gpr_enc:
+                        log.info('Encoded GetPlayerResponse: ' + proto['GetPlayerResponse'])
                     get_player_response_string = b64decode(proto['GetPlayerResponse'])
                 elif method == 2:
+                    if args.log_gpr_enc:
+                        log.info('Encoded GetPlayerResponse: ' + proto['data'])
                     get_player_response_string = b64decode(proto['data'])
 
                 gpr = GetPlayerResponse()
@@ -127,11 +130,13 @@ class Webhook(Flask):
                     log.info('Parsed GetPlayerResponse: ' + (json.dumps(get_player_response_json, sort_keys=True)))
 
             if "GymGetInfoResponse" in proto or method == 156:
-                if args.log_ggir_enc:
-                    log.info('Encoded GymGetInfoResponse: ' + proto['GymGetInfoResponse'])
                 if "GymGetInfoResponse" in proto:
+                    if args.log_ggir_enc:
+                        log.info('Encoded GymGetInfoResponse: ' + proto['GymGetInfoResponse'])
                     gym_get_info_response_string = b64decode(proto['GymGetInfoResponse'])
                 elif method == 156:
+                    if args.log_ggir_enc:
+                        log.info('Encoded GymGetInfoResponse: ' + proto['data'])
                     gym_get_info_response_string = b64decode(proto['data'])
 
 
@@ -147,11 +152,13 @@ class Webhook(Flask):
                     log.info('Parsed GymGetInfoResponse: ' + (json.dumps(gym_get_info_response_json, sort_keys=True)))
 
             if "FortDetailsResponse" in proto or method == 104:
-                if args.log_fdr_enc:
-                    log.info('Encoded FortDetailsResponse: ' + proto['FortDetailsResponse'])
                 if "FortDetailsResponse" in proto:
+                    if args.log_fdr_enc:
+                        log.info('Encoded FortDetailsResponse: ' + proto['FortDetailsResponse'])
                     fort_details_response_string = b64decode(proto['FortDetailsResponse'])
                 elif method == 104:
+                    if args.log_fdr_enc:
+                        log.info('Encoded FortDetailsResponse: ' + proto['data'])
                     fort_details_response_string = b64decode(proto['data'])
 
 
@@ -167,11 +174,13 @@ class Webhook(Flask):
                     log.info('Parsed FortDetailsResponse: ' + (json.dumps(fort_details_response_json, sort_keys=True)))
 
             if "FortSearchResponse" in proto or method == 101:
-                if args.log_frs_enc:
-                    log.info('Encoded FortSearchResponse: ' + proto['FortSearchResponse'])
                 if "FortSearchResponse" in proto:
+                    if args.log_frs_enc:
+                        log.info('Encoded FortSearchResponse: ' + proto['FortSearchResponse'])
                     fort_search_response_string = b64decode(proto['FortSearchResponse'])
                 elif method == 101:
+                    if args.log_frs_enc:
+                        log.info('Encoded FortSearchResponse: ' + proto['data'])
                     fort_search_response_string = b64decode(proto['data'])
 
 
@@ -187,11 +196,13 @@ class Webhook(Flask):
                     log.info('Parsed FortSearchResponse: ' + (json.dumps(fort_search_response_json, sort_keys=True)))
 
             if ("EncounterResponse" in proto or method == 102) and int(trainerlvl) >= 30:
-                if args.log_encounter_enc:
-                    log.info('Encoded EncounterResponse: ' + proto['EncounterResponse'])
                 if "EncounterResponse" in proto:
+                    if args.log_encounter_enc:
+                        log.info('Encoded EncounterResponse: ' + proto['EncounterResponse'])
                     encounter_response_string = b64decode(proto['EncounterResponse'])
                 elif method == 102:
+                    if args.log_encounter_enc:
+                        log.info('Encoded EncounterResponse: ' + proto['data'])
                     encounter_response_string = b64decode(proto['data'])
 
                 encounter = EncounterResponse()
