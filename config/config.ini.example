@@ -2,51 +2,84 @@
 #################
 
 #host: 
-	# Address to listen on (default='127.0.0.1')
+    # Address to listen on (default='127.0.0.1')
 #port: 
-	# Port to listen on (default=5000)
+    # Port to listen on (default=5000)
+
 
 # Webserver Settings
 ####################
 
 #ssl-certificate: 
-	# Path to ssl certificate
+    # Path to ssl certificate
 #ssl-privatekey: 
-	# Path to ssl private key
+    # Path to ssl private key
+
 
 # Logging Options
 ######
+
 #no-file-logs
-	# Disables logging to files except for access.log. (default=False)
+    # Disables logging to files except for access.log. (default=False)
 #log-path: 
-	# Defines the path logs are saved at. (default=logs/)
+    # Defines the path logs are saved at. (default=logs/)
 #log-filename: 
-	# Defines the log filename to be saved. The default generates yyyymmdd_HHMM_statusname.log. (default=%Y%m%d_%H%M_<SN>)
-#log-wysiwyg
-	# Tells the logger to write the logs as they show in console. Otherwise, just write the messages to the log. (default=False)
-#log-gmo-enc
-	# Tells the logger to display the encoded GetMapObjects in console and write it to the log file. (default=False)
-#log-gmo-par
-	# Tells the logger to display the parsed GetMapObjects in console and write it to the log file. (default=False)
-#log-gpr-enc
-	# Tells the logger to display the encoded GetPlayerResponse in console and write it to the log file. (default=False)
-#log-gpr-par
-	# Tells the logger to display the parsed GetPlayerResponse in console and write it to the log file. (default=False)
-#log-ggir-enc
-	# Tells the logger to display the encoded GymGetInfoResponse in console and write it to the log file. (default=False)
-#log-ggir-par
-	# Tells the logger to display the parsed GymGetInfoResponse in console and write it to the log file. (default=False)
-#log-fdr-enc
-	# Tells the logger to display the encoded FortDetailsResponse in console and write it to the log file. (default=False)
-#log-fdr-par
-	# Tells the logger to display the parsed FortDetailsResponse in console and write it to the log file. (default=False)
-#log-frs-enc
-	# Tells the logger to display the encoded FortSearchResponse in console and write it to the log file. (default=False)
-#log-frs-par
-	# Tells the logger to display the parsed FortSearchResponse in console and write it to the log file. (default=False)
-#log-encounter-enc
-	# Tells the logger to display the encoded EncounterResponse in console and write it to the log file. (default=False)
-#log-encounter-par
-	# Tells the logger to display the parsed EncounterResponse in console and write it to the log file. (default=False)
+    # Defines the log filename to be saved. The default generates yyyymmdd_HHMM_statusname.log. (default=%Y%m%d_%H%M_<SN>)
 #status-name: 
-	# Used to set the name of this instance to the log file
+    # Used to set the name of this instance to the log file
+#log-wysiwyg
+    # Tells the logger to write the logs as they show in console. Otherwise, just write the messages to the log. (default=False)
+#log-webhook
+    # Tells the logger to display the JSON from the initial webhook in console and write it to the log file. (default=False)
+	# This will cause a lot of logs to be written and text to be displayed.
+
+#log-gpr-enc
+    # Tells the logger to display the encoded GetPlayerResponse in console and write it to the log file. (default=False)
+#log-gpr-par
+    # Tells the logger to display the parsed GetPlayerResponse in console and write it to the log file. (default=False)
+#log-ghir-enc
+    # Tells the logger to display the encoded GetHoloInventoryResponse in console and write it to the log file. (default=False)
+#log-ghir-par
+    # Tells the logger to display the parsed GetHoloInventoryResponse in console and write it to the log file. (default=False)
+#log-fsr-enc
+    # Tells the logger to display the encoded FortSearchResponse in console and write it to the log file. (default=False)
+#log-fsr-par
+    # Tells the logger to display the parsed FortSearchResponse in console and write it to the log file. (default=False)
+#log-encounter-enc
+    # Tells the logger to display the encoded EncounterResponse in console and write it to the log file. (default=False)
+#log-encounter-par
+    # Tells the logger to display the parsed EncounterResponse in console and write it to the log file. (default=False)
+#trainerlvl: 
+    # Used to set the minimal trainer level for EncounterResponse. (default=30)
+#log-cpr-enc
+    # Tells the logger to display the encoded CatchPokemonResponse in console and write it to the log file. (default=False)
+#log-cpr-par
+    # Tells the logger to display the parsed CatchPokemonResponse in console and write it to the log file. (default=False)
+#log-fdr-enc
+    # Tells the logger to display the encoded FortDetailsResponse in console and write it to the log file. (default=False)
+#log-fdr-par
+    # Tells the logger to display the parsed FortDetailsResponse in console and write it to the log file. (default=False)
+#log-gmo-enc
+    # Tells the logger to display the encoded GetMapObjects in console and write it to the log file. (default=False)
+#log-gmo-par
+    # Tells the logger to display the parsed GetMapObjects in console and write it to the log file. (default=False)
+#log-riir-enc
+    # Tells the logger to display the encoded RecycleInventoryItemResponse in console and write it to the log file. (default=False)
+#log-riir-par
+    # Tells the logger to display the parsed RecycleInventoryItemResponse in console and write it to the log file. (default=False)
+#log-der-enc
+    # Tells the logger to display the encoded DiskEncounterResponse in console and write it to the log file. (default=False)
+#log-der-par
+    # Tells the logger to display the parsed DiskEncounterResponse in console and write it to the log file. (default=False)
+#log-ggir-enc
+    # Tells the logger to display the encoded GymGetInfoResponse in console and write it to the log file. (default=False)
+#log-ggir-par
+    # Tells the logger to display the parsed GymGetInfoResponse in console and write it to the log file. (default=False)
+#log-grdr-enc
+    # Tells the logger to display the encoded GetRaidDetailsResponse in console and write it to the log file. (default=False)
+#log-grdr-par
+    # Tells the logger to display the parsed GetRaidDetailsResponse in console and write it to the log file. (default=False)
+#log-rqr-enc
+    # Tells the logger to display the encoded RemoveQuestResponse in console and write it to the log file. (default=False)
+#log-rqr-par
+    # Tells the logger to display the parsed RemoveQuestResponse in console and write it to the log file. (default=False)
