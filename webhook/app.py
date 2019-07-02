@@ -4,6 +4,7 @@
 import calendar
 import logging
 import gc
+import pprint
 
 from datetime import datetime
 from flask import Flask, request, json
@@ -39,14 +40,23 @@ class Webhook(Flask):
         # Routes
         self.json_encoder = CustomJSONEncoder
         self.route("/", methods=['GET', 'POST', 'CONNECT'])(self.webhook)
+        self.route("/activate", methods=['GET', 'POST', 'CONNECT'])(self.webhook)
         self.route("/webhook", methods=['GET', 'POST', 'CONNECT'])(self.webhook)
 
     def webhook(self):
         args = get_args()
+#        log.info(pprint.pformat(request.__dict__, depth=5))
+#        log.info('Request: %s', request)
+#        log.info('Environ: %s', request.environ)
+#        log.info('Headers: %s', request.headers)
+#        log.info('Body: %s', request.get_data())
+#        log.info('Data: %s', request.get_json(request.data))
         
         if request.method == "GET":
             request_json = request.args
         elif request.method == "POST":
+            request_json = request.get_json(request.get_data())
+        else:
             request_json = request.get_json(request.get_data())
 
         if args.log_webhook:
@@ -55,6 +65,8 @@ class Webhook(Flask):
         if "protos" in request_json:
             protos = request_json.get('protos')
         elif "contents" in request_json:
+            protos = request_json.get('contents')
+        else:
             protos = request_json.get('contents')
             
         if "trainerlvl" in request_json:
@@ -76,7 +88,7 @@ class Webhook(Flask):
             if "method" in proto:
                 method = proto['method']
 
-            if "GetPlayerResponse" in proto or method == 2:
+            if ("GetPlayerResponse" in proto or method == 2) and (args.log_gpr_enc or args.log_gpr_par):
                 if "GetPlayerResponse" in proto:
                     if args.log_gpr_enc:
                         log.info('Encoded GetPlayerResponse: ' + proto['GetPlayerResponse'])
@@ -97,7 +109,7 @@ class Webhook(Flask):
                 if args.log_gpr_par:
                     log.info('Parsed GetPlayerResponse: ' + (json.dumps(get_player_response_json, sort_keys=True)))
 
-            if "GetHoloInventoryResponse" in proto or method == 4:
+            if ("GetHoloInventoryResponse" in proto or method == 4) and (args.log_ghir_enc or args.log_ghir_par):
                 if "GetHoloInventoryResponse" in proto:
                     if args.log_ghir_enc:
                         log.info('Encoded GetHoloInventoryResponse: ' + proto['GetHoloInventoryResponse'])
@@ -118,7 +130,7 @@ class Webhook(Flask):
                 if args.log_ghir_par:
                     log.info('Parsed GetHoloInventoryResponse: ' + (json.dumps(get_holo_inventory_response_json, sort_keys=True)))
 
-            if "FortSearchResponse" in proto or method == 101:
+            if ("FortSearchResponse" in proto or method == 101) and (args.log_fsr_enc or args.log_fsr_par):
                 if "FortSearchResponse" in proto:
                     if args.log_fsr_enc:
                         log.info('Encoded FortSearchResponse: ' + proto['FortSearchResponse'])
@@ -139,7 +151,8 @@ class Webhook(Flask):
                 if args.log_fsr_par:
                     log.info('Parsed FortSearchResponse: ' + (json.dumps(fort_search_response_json, sort_keys=True)))
 
-            if ("EncounterResponse" in proto or method == 102) and int(trainerlvl) >= args.trainerlvl:
+            if ("EncounterResponse" in proto or method == 102) and (args.log_encounter_enc or args.log_encounter_par) and int(trainerlvl) >= args.trainerlvl:
+                log.info('Logging')
                 if "EncounterResponse" in proto:
                     if args.log_encounter_enc:
                         log.info('Encoded EncounterResponse: ' + proto['EncounterResponse'])
@@ -160,7 +173,7 @@ class Webhook(Flask):
                 if args.log_encounter_par:
                     log.info('Parsed EncounterResponse: ' + (json.dumps(encounter_response_json, sort_keys=True)))
 
-            if "CatchPokemonResponse" in proto or method == 103:
+            if ("CatchPokemonResponse" in proto or method == 103) and (args.log_cpr_enc or args.log_cpr_par):
                 if "CatchPokemonResponse" in proto:
                     if args.log_cpr_enc:
                         log.info('Encoded CatchPokemonResponse: ' + proto['CatchPokemonResponse'])
@@ -181,7 +194,7 @@ class Webhook(Flask):
                 if args.log_cpr_par:
                     log.info('Parsed CatchPokemonResponse: ' + (json.dumps(catch_pokemon_response_json, sort_keys=True)))
 
-            if "FortDetailsResponse" in proto or method == 104:
+            if ("FortDetailsResponse" in proto or method == 104) and (args.log_fdr_enc or args.log_fdr_par):
                 if "FortDetailsResponse" in proto:
                     if args.log_fdr_enc:
                         log.info('Encoded FortDetailsResponse: ' + proto['FortDetailsResponse'])
@@ -202,7 +215,7 @@ class Webhook(Flask):
                 if args.log_fdr_par:
                     log.info('Parsed FortDetailsResponse: ' + (json.dumps(fort_details_response_json, sort_keys=True)))
 
-            if "GetMapObjects" in proto or method == 106:
+            if ("GetMapObjects" in proto or method == 106) and (args.log_gmo_enc or args.log_gmo_par):
                 if "GetMapObjects" in proto:
                     if args.log_gmo_enc:
                         log.info('Encoded GetMapObjects: ' + proto['GetMapObjects'])
@@ -223,7 +236,7 @@ class Webhook(Flask):
                 if args.log_gmo_par:
                     log.info('Parsed GetMapObjects: ' + (json.dumps(gmo_response_json, sort_keys=True)))
 
-            if "RecycleInventoryItemResponse" in proto or method == 137:
+            if ("RecycleInventoryItemResponse" in proto or method == 137) and (args.log_riir_enc or args.log_riir_par):
                 if "RecycleInventoryItemResponse" in proto:
                     if args.log_riir_enc:
                         log.info('Encoded RecycleInventoryItemResponse: ' + proto['RecycleInventoryItemResponse'])
@@ -244,7 +257,7 @@ class Webhook(Flask):
                 if args.log_riir_par:
                     log.info('Parsed RecycleInventoryItemResponse: ' + (json.dumps(recycle_inventory_item_response_json, sort_keys=True)))
 
-            if "DiskEncounterResponse" in proto or method == 145:
+            if ("DiskEncounterResponse" in proto or method == 145) and (args.log_der_enc or args.log_der_par):
                 if "DiskEncounterResponse" in proto:
                     if args.log_der_enc:
                         log.info('Encoded DiskEncounterResponse: ' + proto['DiskEncounterResponse'])
@@ -265,7 +278,7 @@ class Webhook(Flask):
                 if args.log_der_par:
                     log.info('Parsed DiskEncounterResponse: ' + (json.dumps(disk_encounter_response_json, sort_keys=True)))
 
-            if "GymGetInfoResponse" in proto or method == 156:
+            if ("GymGetInfoResponse" in proto or method == 156) and (args.log_ggir_enc or args.log_ggir_par):
                 if "GymGetInfoResponse" in proto:
                     if args.log_ggir_enc:
                         log.info('Encoded GymGetInfoResponse: ' + proto['GymGetInfoResponse'])
@@ -286,7 +299,7 @@ class Webhook(Flask):
                 if args.log_ggir_par:
                     log.info('Parsed GymGetInfoResponse: ' + (json.dumps(gym_get_info_response_json, sort_keys=True)))
 
-            if "GetRaidDetailsResponse" in proto or method == 163:
+            if ("GetRaidDetailsResponse" in proto or method == 163) and (args.log_grdr_enc or args.log_grdr_par):
                 if "GetRaidDetailsResponse" in proto:
                     if args.log_grdr_enc:
                         log.info('Encoded GetRaidDetailsResponse: ' + proto['GetRaidDetailsResponse'])
@@ -307,7 +320,7 @@ class Webhook(Flask):
                 if args.log_grdr_par:
                     log.info('Parsed GetRaidDetailsResponse: ' + (json.dumps(get_raid_details_response_json, sort_keys=True)))
 
-            if "RemoveQuestResponse" in proto or method == 903:
+            if ("RemoveQuestResponse" in proto or method == 903) and (args.log_rqr_enc or args.log_rqr_par):
                 if "RemoveQuestResponse" in proto:
                     if args.log_rqr_enc:
                         log.info('Encoded RemoveQuestResponse: ' + proto['RemoveQuestResponse'])
